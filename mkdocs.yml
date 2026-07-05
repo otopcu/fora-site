@@ -27,9 +27,12 @@ markdown_extensions:
   - attr_list
   - md_in_html
   - tables
+  - fenced_code
   - toc:
       permalink: true
   - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
   - pymdownx.superfences
 
 nav:
