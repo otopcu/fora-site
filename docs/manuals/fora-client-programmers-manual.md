@@ -31,20 +31,20 @@ For package installation and the short NuGet overview, start with this manual an
 
 ## Install
 
-```powershell
+<pre><code class="language-powershell">
 dotnet add package Fora.Client --version 20260705.1.0
-```
+</code></pre>
 
 Common namespaces:
 
-```csharp
+<pre><code class="language-csharp">
 using Fora.Abstractions;
 using Fora.Abstractions.Connection;
 using Fora.Abstractions.Exceptions;
 using Fora.Abstractions.Handles;
 using Fora.Client;
 using Fora.Encoding;
-```
+</code></pre>
 
 `Fora.Client` targets .NET 10 and uses async APIs throughout. Keep one `ForaClient` instance per federate connection.
 
@@ -52,7 +52,7 @@ using Fora.Encoding;
 
 ## Minimal Federate
 
-```csharp
+<pre><code class="language-csharp">
 using Fora.Abstractions;
 using Fora.Abstractions.Connection;
 using Fora.Client;
@@ -78,11 +78,11 @@ var federate = await client.JoinFederationExecutionAsync(
 
 await client.ResignFederationExecutionAsync(ResignAction.DeleteObjects);
 await client.DisconnectAsync();
-```
+</code></pre>
 
 Your ambassador receives callbacks:
 
-```csharp
+<pre><code class="language-csharp">
 public sealed class MyFederateAmbassador : IFederateAmbassador
 {
     public Task ConnectionLostAsync(string faultDescription)
@@ -102,8 +102,8 @@ public sealed class MyFederateAmbassador : IFederateAmbassador
 
     public Task ReceiveInteractionAsync(
         InteractionClassHandle interactionClass,
-        IReadOnlyDictionary<ParameterHandle, ReadOnlyMemory<byte>> parameterValues,
-        ReadOnlyMemory<byte> tag,
+        IReadOnlyDictionary&lt;ParameterHandle, ReadOnlyMemory&lt;byte&gt;&gt; parameterValues,
+        ReadOnlyMemory&lt;byte&gt; tag,
         OrderType sentOrder,
         TransportationType transport)
     {
@@ -113,7 +113,7 @@ public sealed class MyFederateAmbassador : IFederateAmbassador
 
     // Implement the remaining IFederateAmbassador members used by your federate.
 }
-```
+</code></pre>
 
 ---
 
@@ -140,34 +140,34 @@ Default ports:
 
 Plain TCP:
 
-```csharp
+<pre><code class="language-csharp">
 await client.ConnectAsync(new RtiConfiguration
 {
     RtiAddress = "localhost:15164",
     Transport = RtiTransportKind.Tcp
 }, ambassador);
-```
+</code></pre>
 
 TLS:
 
-```csharp
+<pre><code class="language-csharp">
 await client.ConnectAsync(new RtiConfiguration
 {
     RtiAddress = "localhost:15165",
     Transport = RtiTransportKind.Tls
 }, ambassador);
-```
+</code></pre>
 
 Password credentials:
 
-```csharp
+<pre><code class="language-csharp">
 await client.ConnectAsync(new RtiConfiguration
 {
     RtiAddress = "localhost:15164",
     Transport = RtiTransportKind.Tcp,
     Credentials = new HlaPlainTextPasswordCredentials("changeit")
 }, ambassador);
-```
+</code></pre>
 
 `HlaPlainTextPasswordCredentials` carries only the password. Use TLS or a trusted private network when sending password credentials.
 
@@ -204,14 +204,14 @@ The SDK distinguishes two local delivery controls:
 
 Recommended default:
 
-```csharp
+<pre><code class="language-csharp">
 await client.ConnectAsync(configuration, ambassador);
 await client.EnableAsynchronousDeliveryAsync();
-```
+</code></pre>
 
 Synchronous polling style:
 
-```csharp
+<pre><code class="language-csharp">
 await client.ConnectAsync(configuration, ambassador);
 
 while (!ct.IsCancellationRequested)
@@ -223,7 +223,7 @@ while (!ct.IsCancellationRequested)
     if (!delivered)
         await Task.Delay(10, ct);
 }
-```
+</code></pre>
 
 Do not call `EvokeCallbackAsync` after enabling asynchronous delivery.
 
@@ -244,7 +244,7 @@ Typical lifecycle:
 
 Create and join:
 
-```csharp
+<pre><code class="language-csharp">
 await client.CreateFederationExecutionAsync(
     federationName: "DemoFederation",
     fomPath: "Demo.xml",
@@ -255,21 +255,21 @@ FederateHandle federate = await client.JoinFederationExecutionAsync(
     federateType: "Publisher",
     federationName: "DemoFederation",
     ct: ct);
-```
+</code></pre>
 
 List federations and members:
 
-```csharp
+<pre><code class="language-csharp">
 var federations = await client.ListFederationExecutionsAsync(ct);
 var members = await client.ListFederationExecutionMembersAsync("DemoFederation", ct);
-```
+</code></pre>
 
 Resign and cleanup:
 
-```csharp
+<pre><code class="language-csharp">
 await client.ResignFederationExecutionAsync(ResignAction.DeleteObjects, ct);
 await client.DisconnectAsync(ct);
-```
+</code></pre>
 
 Call `DisconnectAsync` only after resigning. RTIs may reject disconnect while the federate is still joined.
 
@@ -279,7 +279,7 @@ Call `DisconnectAsync` only after resigning. RTIs may reject disconnect while th
 
 Most HLA services use handles instead of names. Resolve handles after joining, then cache them in your application state.
 
-```csharp
+<pre><code class="language-csharp">
 ObjectClassHandle vehicleClass =
     await client.GetObjectClassHandleAsync("HLAobjectRoot.Vehicle", ct);
 
@@ -291,14 +291,14 @@ InteractionClassHandle fireEvent =
 
 ParameterHandle munitionParameter =
     await client.GetParameterHandleAsync(fireEvent, "MunitionId", ct);
-```
+</code></pre>
 
 Reverse lookup is also available:
 
-```csharp
+<pre><code class="language-csharp">
 string className = await client.GetObjectClassNameAsync(vehicleClass, ct);
 string interactionName = await client.GetInteractionClassNameAsync(fireEvent, ct);
-```
+</code></pre>
 
 Use the support-service lookup calls rather than hard-coding numeric handle values. Numeric values are RTI/FOM-session artifacts.
 
@@ -310,40 +310,40 @@ HLA attributes and parameters are byte payloads. `Fora.Client` does not infer yo
 
 Simple primitive encoding:
 
-```csharp
+<pre><code class="language-csharp">
 byte[] speed = HlaPrimitives.EncodeFloat64Be(12.5);
 byte[] name = HlaPrimitives.EncodeUnicodeString("Alpha");
 byte[] count = HlaPrimitives.EncodeInt32Be(42);
-```
+</code></pre>
 
 Attribute maps use `AttributeHandle` keys:
 
-```csharp
-var attributes = new Dictionary<AttributeHandle, byte[]>
+<pre><code class="language-csharp">
+var attributes = new Dictionary&lt;AttributeHandle, byte[]&gt;
 {
     [positionAttribute] = EncodePosition(10.0, 20.0, 30.0),
     [nameAttribute] = HlaPrimitives.EncodeUnicodeString("Vehicle-1")
 };
-```
+</code></pre>
 
 Interaction maps use `ParameterHandle` keys:
 
-```csharp
-var parameters = new Dictionary<ParameterHandle, byte[]>
+<pre><code class="language-csharp">
+var parameters = new Dictionary&lt;ParameterHandle, byte[]&gt;
 {
     [munitionParameter] = HlaPrimitives.EncodeUnicodeString("M-001")
 };
-```
+</code></pre>
 
 Generated federates can use the encoded overloads to defer encoding until the SDK telemetry wrapper measures it:
 
-```csharp
+<pre><code class="language-csharp">
 await client.UpdateAttributeValuesEncodedAsync(
     instance,
-    encoder: () => VehicleEncoder.Encode(vehicleDto, som),
-    tag: Array.Empty<byte>(),
+    encoder: () =&gt; VehicleEncoder.Encode(vehicleDto, som),
+    tag: Array.Empty&lt;byte&gt;(),
     ct: ct);
-```
+</code></pre>
 
 For composed datatypes, use `Fora.Encoding` records and arrays or generated codec code from your FOM tooling. Make sure padding and octet boundaries match IEEE 1516.2-2025.
 
@@ -353,51 +353,51 @@ For composed datatypes, use `Fora.Encoding` records and arrays or generated code
 
 Publish and subscribe before exchanging data:
 
-```csharp
+<pre><code class="language-csharp">
 await client.PublishObjectClassAttributesAsync(
     vehicleClass,
-    new HashSet<AttributeHandle> { positionAttribute, nameAttribute },
+    new HashSet&lt;AttributeHandle&gt; { positionAttribute, nameAttribute },
     ct);
 
 await client.SubscribeObjectClassAttributesAsync(
     vehicleClass,
-    new HashSet<AttributeHandle> { positionAttribute, nameAttribute },
+    new HashSet&lt;AttributeHandle&gt; { positionAttribute, nameAttribute },
     ct);
 
 await client.PublishInteractionClassAsync(fireEvent, ct);
 await client.SubscribeInteractionClassAsync(fireEvent, ct);
-```
+</code></pre>
 
 Update object attributes:
 
-```csharp
+<pre><code class="language-csharp">
 await client.UpdateAttributeValuesAsync(
     instance,
     attributes,
-    tag: Array.Empty<byte>(),
+    tag: Array.Empty&lt;byte&gt;(),
     ct: ct);
-```
+</code></pre>
 
 Send a receive-order interaction:
 
-```csharp
+<pre><code class="language-csharp">
 await client.SendInteractionAsync(
     fireEvent,
     parameters,
-    tag: Array.Empty<byte>(),
+    tag: Array.Empty&lt;byte&gt;(),
     ct: ct);
-```
+</code></pre>
 
 Send a timestamp-order interaction:
 
-```csharp
+<pre><code class="language-csharp">
 MessageRetractionHandle? retraction = await client.SendInteractionAsync(
     fireEvent,
     parameters,
-    tag: Array.Empty<byte>(),
+    tag: Array.Empty&lt;byte&gt;(),
     time: 15.0,
     ct: ct);
-```
+</code></pre>
 
 The optional return value is a message retraction handle for timestamp-order sends when the RTI supplies one.
 
@@ -407,27 +407,27 @@ The optional return value is a message retraction handle for timestamp-order sen
 
 Register an object instance after publishing the object class:
 
-```csharp
+<pre><code class="language-csharp">
 ObjectInstanceHandle instance =
     await client.RegisterObjectInstanceAsync(vehicleClass, "Vehicle-1", ct);
-```
+</code></pre>
 
 Reserve names when your federation needs deterministic object instance names:
 
-```csharp
+<pre><code class="language-csharp">
 await client.ReserveObjectInstanceNameAsync("Vehicle-1", ct);
-```
+</code></pre>
 
 The result is delivered through `ObjectInstanceNameReservationSucceededAsync` or `ObjectInstanceNameReservationFailedAsync`.
 
 Delete an object instance:
 
-```csharp
+<pre><code class="language-csharp">
 await client.DeleteObjectInstanceAsync(
     instance,
-    tag: Array.Empty<byte>(),
+    tag: Array.Empty&lt;byte&gt;(),
     ct: ct);
-```
+</code></pre>
 
 Subscribers receive `DiscoverObjectInstanceAsync`, `ReflectAttributeValuesAsync`, and `RemoveObjectInstanceAsync` callbacks according to their subscriptions and RTI routing rules.
 
@@ -437,29 +437,29 @@ Subscribers receive `DiscoverObjectInstanceAsync`, `ReflectAttributeValuesAsync`
 
 Enable time regulation and/or time constrained mode before using timestamp-order services:
 
-```csharp
+<pre><code class="language-csharp">
 await client.EnableTimeRegulationAsync(lookahead: 1.0, ct: ct);
 await client.EnableTimeConstrainedAsync(ct);
-```
+</code></pre>
 
 The ambassador receives:
 
-```csharp
+<pre><code class="language-csharp">
 Task TimeRegulationEnabledAsync(double logicalTime);
 Task TimeConstrainedEnabledAsync(double logicalTime);
-```
+</code></pre>
 
 Advance time:
 
-```csharp
+<pre><code class="language-csharp">
 await client.TimeAdvanceRequestAsync(10.0, ct);
-```
+</code></pre>
 
 The grant arrives through:
 
-```csharp
+<pre><code class="language-csharp">
 Task TimeAdvanceGrantAsync(double logicalTime);
-```
+</code></pre>
 
 Other supported advance services:
 
@@ -472,12 +472,12 @@ Other supported advance services:
 
 Query time state:
 
-```csharp
+<pre><code class="language-csharp">
 double time = await client.QueryLogicalTimeAsync(ct);
 double lookahead = await client.QueryLookaheadAsync(ct);
 double galt = await client.QueryGALTAsync(ct);
 double lits = await client.QueryLITSAsync(ct);
-```
+</code></pre>
 
 ---
 
@@ -485,47 +485,47 @@ double lits = await client.QueryLITSAsync(ct);
 
 Create a region from dimensions, commit ranges, and use region-aware subscription or update services.
 
-```csharp
+<pre><code class="language-csharp">
 DimensionHandle area =
     await client.GetDimensionHandleAsync("Area", ct);
 
 RegionHandle region =
-    await client.CreateRegionAsync(new HashSet<DimensionHandle> { area }, ct);
+    await client.CreateRegionAsync(new HashSet&lt;DimensionHandle&gt; { area }, ct);
 
 await client.CommitRegionModificationsAsync(
-    new Dictionary<RegionHandle, IReadOnlyDictionary<DimensionHandle, RangeBounds>>
+    new Dictionary&lt;RegionHandle, IReadOnlyDictionary&lt;DimensionHandle, RangeBounds&gt;&gt;
     {
-        [region] = new Dictionary<DimensionHandle, RangeBounds>
+        [region] = new Dictionary&lt;DimensionHandle, RangeBounds&gt;
         {
             [area] = new RangeBounds(0, 100)
         }
     },
     ct);
-```
+</code></pre>
 
 Subscribe attributes with regions:
 
-```csharp
+<pre><code class="language-csharp">
 await client.SubscribeObjectClassAttributesWithRegionsAsync(
     vehicleClass,
-    new Dictionary<AttributeHandle, IReadOnlySet<RegionHandle>>
+    new Dictionary&lt;AttributeHandle, IReadOnlySet&lt;RegionHandle&gt;&gt;
     {
-        [positionAttribute] = new HashSet<RegionHandle> { region }
+        [positionAttribute] = new HashSet&lt;RegionHandle&gt; { region }
     },
     ct);
-```
+</code></pre>
 
 Associate a registered object with update regions:
 
-```csharp
+<pre><code class="language-csharp">
 await client.AssociateRegionsForUpdatesAsync(
     instance,
-    new Dictionary<AttributeHandle, IReadOnlySet<RegionHandle>>
+    new Dictionary&lt;AttributeHandle, IReadOnlySet&lt;RegionHandle&gt;&gt;
     {
-        [positionAttribute] = new HashSet<RegionHandle> { region }
+        [positionAttribute] = new HashSet&lt;RegionHandle&gt; { region }
     },
     ct);
-```
+</code></pre>
 
 When region conveyance is enabled, matching sent regions can be delivered to the ambassador through the DDM-aware callback overloads.
 
@@ -537,31 +537,31 @@ Ownership APIs map directly to HLA attribute ownership workflows.
 
 Acquire if available:
 
-```csharp
+<pre><code class="language-csharp">
 await client.AttributeOwnershipAcquisitionIfAvailableAsync(
     instance,
-    new HashSet<AttributeHandle> { positionAttribute },
+    new HashSet&lt;AttributeHandle&gt; { positionAttribute },
     ct);
-```
+</code></pre>
 
 Request negotiated acquisition:
 
-```csharp
+<pre><code class="language-csharp">
 await client.AttributeOwnershipAcquisitionAsync(
     instance,
-    new HashSet<AttributeHandle> { positionAttribute },
-    tag: Array.Empty<byte>(),
+    new HashSet&lt;AttributeHandle&gt; { positionAttribute },
+    tag: Array.Empty&lt;byte&gt;(),
     ct);
-```
+</code></pre>
 
 Release ownership:
 
-```csharp
+<pre><code class="language-csharp">
 await client.UnconditionalAttributeOwnershipDivestitureAsync(
     instance,
-    new HashSet<AttributeHandle> { positionAttribute },
+    new HashSet&lt;AttributeHandle&gt; { positionAttribute },
     ct);
-```
+</code></pre>
 
 Relevant callbacks include `RequestAttributeOwnershipReleaseAsync`, `AttributeOwnershipAcquisitionNotificationAsync`, `AttributeOwnershipUnavailableAsync`, and `InformAttributeOwnershipAsync`.
 
@@ -586,13 +586,13 @@ Support services are used heavily by generated federates and diagnostics:
 
 Subscribe to the `Logged` event for SDK diagnostics:
 
-```csharp
+<pre><code class="language-csharp">
 client.MinimumLogLevel = ForaLogLevel.Debug;
-client.Logged += (_, e) =>
+client.Logged += (_, e) =&gt;
 {
     Console.WriteLine($"[{e.Level}] {e.Message}");
 };
-```
+</code></pre>
 
 The `ForaClient(ILogger<ForaClient>)` constructor also forwards SDK logs into Microsoft.Extensions.Logging.
 
@@ -610,10 +610,10 @@ Useful diagnostic signals:
 
 For normal shutdown:
 
-```csharp
+<pre><code class="language-csharp">
 await client.ResignFederationExecutionAsync(ResignAction.DeleteObjects, ct);
 await client.DisconnectAsync(ct);
-```
+</code></pre>
 
 `DisconnectAsync` sends the HLA disconnect service and then disposes the FP connection. During disposal, the SDK performs the standard `CTRL_TERMINATE_SESSION` to `CTRL_SESSION_TERMINATED` handshake when the session is still active.
 
@@ -632,7 +632,7 @@ Treat `ConnectionLostAsync` as a terminal state for the current `ForaClient` ins
 
 RTI-reported service exceptions are mapped to `HlaException` subclasses when possible.
 
-```csharp
+<pre><code class="language-csharp">
 try
 {
     await client.CreateFederationExecutionAsync("DemoFederation", "Demo.xml", ct);
@@ -646,7 +646,7 @@ catch (HlaException ex)
     Console.Error.WriteLine($"{ex.ErrorType}: {ex.Message}");
     throw;
 }
-```
+</code></pre>
 
 Common lifecycle exceptions:
 

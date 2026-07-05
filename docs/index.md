@@ -40,7 +40,7 @@ An interactive terminal UI for local development and live RTI inspection.
 
 ## Quick SDK Sketch
 
-```csharp
+<pre><code class="language-csharp">
 await using var client = new ForaClient();
 var ambassador = new MyFederateAmbassador();
 
@@ -52,7 +52,7 @@ await client.ConnectAsync(new RtiConfiguration
 
 await client.EnableAsynchronousDeliveryAsync();
 await client.JoinFederationExecutionAsync("FederateA", "Example", "DemoFederation");
-```
+</code></pre>
 
 ## Documentation Scope
 

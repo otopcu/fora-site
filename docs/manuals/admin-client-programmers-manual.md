@@ -25,17 +25,17 @@ Use this guide when you want to write code against the RTI admin HTTP surface. F
 
 ## Install
 
-```powershell
+<pre><code class="language-powershell">
 dotnet add package Fora.Rti.Admin.Client
-```
+</code></pre>
 
 Common namespaces:
 
-```csharp
+<pre><code class="language-csharp">
 using System.Net.Http.Headers;
 using Fora.Rti.Admin;
 using Fora.Rti.Admin.Commands;
-```
+</code></pre>
 
 `Fora.Rti.Admin.Client` is async-first. Keep one `HttpClient` for the lifetime of your tool or dashboard client.
 
@@ -43,7 +43,7 @@ using Fora.Rti.Admin.Commands;
 
 ## Minimal Client
 
-```csharp
+<pre><code class="language-csharp">
 using Fora.Rti.Admin;
 
 using var http = new HttpClient
@@ -55,12 +55,12 @@ IRtiAdminClient client = new HttpAdminClient(http);
 
 VersionInfo version = await client.GetVersionAsync();
 AdminStatus status = await client.GetStatusAsync();
-IReadOnlyList<string> federations = await client.GetFederationsAsync();
+IReadOnlyList&lt;string&gt; federations = await client.GetFederationsAsync();
 
 Console.WriteLine($"{version.Component} {version.PackageVersion}");
 Console.WriteLine($"Healthy: {status.Healthy}, sessions: {status.ActiveSessions}");
 Console.WriteLine($"Federations: {string.Join(", ", federations)}");
-```
+</code></pre>
 
 ---
 
@@ -84,7 +84,7 @@ Console.WriteLine($"Federations: {string.Join(", ", federations)}");
 
 Basic setup:
 
-```csharp
+<pre><code class="language-csharp">
 using var http = new HttpClient
 {
     BaseAddress = new Uri("https://rti-host:8443"),
@@ -92,17 +92,17 @@ using var http = new HttpClient
 };
 
 IRtiAdminClient client = new HttpAdminClient(http);
-```
+</code></pre>
 
 For ASP.NET Core dashboards, register a typed client:
 
-```csharp
-builder.Services.AddHttpClient<IRtiAdminClient, HttpAdminClient>(http =>
+<pre><code class="language-csharp">
+builder.Services.AddHttpClient&lt;IRtiAdminClient, HttpAdminClient&gt;(http =&gt;
 {
     http.BaseAddress = new Uri(builder.Configuration["Fora:RtiAdminUrl"]!);
     http.Timeout = TimeSpan.FromSeconds(15);
 });
-```
+</code></pre>
 
 ---
 
@@ -110,7 +110,7 @@ builder.Services.AddHttpClient<IRtiAdminClient, HttpAdminClient>(http =>
 
 When `Fora.Rti.Server` has `ForaRtiServer:Admin:ApiKey` configured, `/admin/*` endpoints require a bearer token. Attach the token to the `HttpClient`.
 
-```csharp
+<pre><code class="language-csharp">
 using var http = new HttpClient
 {
     BaseAddress = new Uri("https://rti-host:8443")
@@ -120,7 +120,7 @@ http.DefaultRequestHeaders.Authorization =
     new AuthenticationHeaderValue("Bearer", apiKey);
 
 IRtiAdminClient client = new HttpAdminClient(http);
-```
+</code></pre>
 
 Prefer `https://` when sending an admin token. A bearer token over plain HTTP is visible to anyone who can observe the network path.
 
@@ -132,26 +132,26 @@ Prefer `https://` when sending an admin token. A bearer token over plain HTTP is
 
 Use `IsHealthyAsync` for quick checks:
 
-```csharp
+<pre><code class="language-csharp">
 bool healthy = await client.IsHealthyAsync(ct);
-```
+</code></pre>
 
 `IsHealthyAsync` returns `false` if the HTTP request fails. It is intentionally suitable for probes and monitors.
 
 Use `GetStatusAsync` when you need server state:
 
-```csharp
+<pre><code class="language-csharp">
 AdminStatus status = await client.GetStatusAsync(ct);
 
 Console.WriteLine($"Healthy: {status.Healthy}");
 Console.WriteLine($"Active sessions: {status.ActiveSessions}");
 Console.WriteLine($"Auth enabled: {status.AuthorizationEnabled}");
 Console.WriteLine($"Auth service: {status.AuthorizationServiceName}");
-```
+</code></pre>
 
 Use `GetVersionAsync` for display and compatibility checks:
 
-```csharp
+<pre><code class="language-csharp">
 VersionInfo version = await client.GetVersionAsync(ct);
 
 Console.WriteLine(version.Component);
@@ -159,7 +159,7 @@ Console.WriteLine(version.PackageVersion);
 Console.WriteLine(version.Standard);
 Console.WriteLine(version.Hla);
 Console.WriteLine(version.CapabilityLevel);
-```
+</code></pre>
 
 ---
 
@@ -167,32 +167,32 @@ Console.WriteLine(version.CapabilityLevel);
 
 List active federation executions:
 
-```csharp
-IReadOnlyList<string> federations = await client.GetFederationsAsync(ct);
-```
+<pre><code class="language-csharp">
+IReadOnlyList&lt;string&gt; federations = await client.GetFederationsAsync(ct);
+</code></pre>
 
 List joined federates:
 
-```csharp
-IReadOnlyList<FederateInfo> federates = await client.GetFederatesAsync(ct);
+<pre><code class="language-csharp">
+IReadOnlyList&lt;FederateInfo&gt; federates = await client.GetFederatesAsync(ct);
 
 foreach (var federate in federates)
 {
     Console.WriteLine($"{federate.Federation}: {federate.Name} ({federate.Type})");
 }
-```
+</code></pre>
 
 List Federate Protocol sessions:
 
-```csharp
-IReadOnlyList<SessionInfo> sessions = await client.GetSessionsAsync(ct);
+<pre><code class="language-csharp">
+IReadOnlyList&lt;SessionInfo&gt; sessions = await client.GetSessionsAsync(ct);
 
 foreach (var session in sessions)
 {
     Console.WriteLine(
         $"{session.SessionId} online={session.IsOnline} lastSeen={session.LastSeenUtc:O}");
 }
-```
+</code></pre>
 
 `DisconnectedAtUtc` is populated when the server has observed a session disconnect.
 
@@ -202,29 +202,29 @@ foreach (var session in sessions)
 
 Fetch recent logs:
 
-```csharp
-IReadOnlyList<LogEntry> logs = await client.GetLogsAsync(ct: ct);
-```
+<pre><code class="language-csharp">
+IReadOnlyList&lt;LogEntry&gt; logs = await client.GetLogsAsync(ct: ct);
+</code></pre>
 
 Fetch logs after a known timestamp:
 
-```csharp
+<pre><code class="language-csharp">
 DateTimeOffset since = DateTimeOffset.UtcNow.AddMinutes(-5);
-IReadOnlyList<LogEntry> recent = await client.GetLogsAsync(since, ct);
-```
+IReadOnlyList&lt;LogEntry&gt; recent = await client.GetLogsAsync(since, ct);
+</code></pre>
 
 Stream live logs with Server-Sent Events:
 
-```csharp
+<pre><code class="language-csharp">
 await foreach (LogEntry entry in client.StreamLogsAsync(ct))
 {
     Console.WriteLine($"[{entry.TimestampUtc:O}] {entry.Level}: {entry.Message}");
 }
-```
+</code></pre>
 
 `StreamLogsAsync` completes when the server closes the stream or the cancellation token is canceled. If your dashboard needs continuous tailing, wrap it in a reconnect loop with backoff.
 
-```csharp
+<pre><code class="language-csharp">
 while (!ct.IsCancellationRequested)
 {
     try
@@ -242,7 +242,7 @@ while (!ct.IsCancellationRequested)
         await Task.Delay(TimeSpan.FromSeconds(2), ct);
     }
 }
-```
+</code></pre>
 
 ---
 
@@ -250,20 +250,20 @@ while (!ct.IsCancellationRequested)
 
 Save a snapshot:
 
-```csharp
+<pre><code class="language-csharp">
 await client.SaveSnapshotAsync("baseline", ct);
-```
+</code></pre>
 
 Restore a snapshot:
 
-```csharp
+<pre><code class="language-csharp">
 bool restored = await client.RestoreSnapshotAsync("baseline", ct);
 
 if (!restored)
 {
     Console.WriteLine("Snapshot not found.");
 }
-```
+</code></pre>
 
 `RestoreSnapshotAsync` returns `false` only for a genuine missing snapshot (`404`). Other server failures throw.
 
@@ -273,9 +273,9 @@ Snapshot labels are URL-escaped by `HttpAdminClient`, so labels may contain char
 
 ## Shutdown
 
-```csharp
+<pre><code class="language-csharp">
 await client.ShutdownAsync(ct);
-```
+</code></pre>
 
 This sends a remote shutdown request to the server. Use it only from trusted operator workflows. If the server requires an admin API key, the request must include the bearer token.
 
@@ -296,7 +296,7 @@ This sends a remote shutdown request to the server. Use it only from trusted ope
 
 Typical pattern:
 
-```csharp
+<pre><code class="language-csharp">
 try
 {
     await client.SaveSnapshotAsync("before-test", ct);
@@ -309,7 +309,7 @@ catch (HttpRequestException ex)
 {
     Console.Error.WriteLine($"Admin request failed: {ex.Message}");
 }
-```
+</code></pre>
 
 For dashboards, distinguish probe-style calls (`IsHealthyAsync`) from contract calls (`GetStatusAsync`, `GetSessionsAsync`, `SaveSnapshotAsync`) so operators can see real server errors.
 
@@ -319,7 +319,7 @@ For dashboards, distinguish probe-style calls (`IsHealthyAsync`) from contract c
 
 The shared abstractions package also contains a small command framework used by the built-in admin tooling. Advanced tools can reuse it when they want CLI-like commands over an `IRtiAdminClient`.
 
-```csharp
+<pre><code class="language-csharp">
 var registry = new CommandRegistry();
 IAdminCommand? command = registry.GetCommand("federations");
 
@@ -334,7 +334,7 @@ if (command is not null)
 
     await command.ExecuteAsync(context);
 }
-```
+</code></pre>
 
 For most dashboards and service integrations, call `IRtiAdminClient` directly. Use the command layer when you are building a command runner, shell, or automation surface that should behave like `fora-admin`.
 
