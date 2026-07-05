@@ -12,6 +12,7 @@ This site starts with the public manuals. Internal architecture notes are intent
 | Manual | Use it for |
 | :--- | :--- |
 | [Fora.Client Programmer's Manual](manuals/fora-client-programmers-manual.md) | Building .NET federates with the SDK: connect, join, callbacks, publish/subscribe, updates, interactions, DDM, time, and shutdown. |
+| [Fora.Rti.Admin.Client Programmer's Manual](manuals/admin-client-programmers-manual.md) | Building custom RTI management tools, dashboards, monitors, and automation with the admin SDK. |
 | [Fora.Rti.Admin User Manual](manuals/admin-tool-user-manual.md) | Running one-off admin commands, automation, JSON output, health checks, logs, snapshots, and remote server management. |
 | [Fora.Rti.Console User Manual](manuals/console-user-manual.md) | Using the interactive console for local RTI development or attaching to a running RTI server. |
 
@@ -28,6 +29,10 @@ A container-friendly RTI server for local and hosted federation execution. It ex
 ### Fora.Rti.Admin
 
 A headless administration CLI for scripts, CI checks, remote diagnostics, and server automation.
+
+### Fora.Rti.Admin.Client
+
+The programmatic admin SDK behind custom dashboards, monitors, and automation clients.
 
 ### Fora.Rti.Console
 

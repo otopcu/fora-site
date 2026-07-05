@@ -37,5 +37,6 @@ nav:
   - Manuals:
       - Overview: manuals/index.md
       - Fora.Client Programmer's Manual: manuals/fora-client-programmers-manual.md
+      - Fora.Rti.Admin.Client Programmer's Manual: manuals/admin-client-programmers-manual.md
       - Fora.Rti.Admin User Manual: manuals/admin-tool-user-manual.md
       - Fora.Rti.Console User Manual: manuals/console-user-manual.md
