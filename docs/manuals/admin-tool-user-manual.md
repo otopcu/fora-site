@@ -1,9 +1,9 @@
 ---
-description: Full reference for fora-admin CLI â€” installation, all commands, JSON output, and automation.
+description: Full reference for fora-admin CLI — installation, all commands, JSON output, and automation.
 ---
 # Fora.Rti.Admin User Manual
 
-`fora-admin` is the headless remote administration CLI for `Fora.Rti.Server`. It connects to a running server over HTTP and executes one-off admin commands â€” suitable for automation, CI pipelines, and SSH sessions.
+`fora-admin` is the headless remote administration CLI for `Fora.Rti.Server`. It connects to a running server over HTTP and executes one-off admin commands — suitable for automation, CI pipelines, and SSH sessions.
 
 ## Table of Contents
 - [Installation](#installation)
@@ -76,13 +76,13 @@ fora-admin --connect http://localhost:8080 --format json federations list
 
 By default the admin HTTP surface is unauthenticated. When the server sets `ForaRtiServer:Admin:ApiKey`, every `/admin/*` command requires a matching key; `version` and `health` stay open (they map to `/version` and `/health`, which are never gated).
 
-Supply the key one of two ways â€” the argument takes precedence when both are present:
+Supply the key one of two ways — the argument takes precedence when both are present:
 
 <pre><code class="language-bash">
 # Explicit flag
 fora-admin --connect https://rti-host:8443 --token "$ADMIN_KEY" shutdown
 
-# Environment variable (keeps the secret out of the process argument list â€” preferred for scripts and CI)
+# Environment variable (keeps the secret out of the process argument list — preferred for scripts and CI)
 export FORA_RTI_TOKEN="s3cr3t-admin-key"
 fora-admin --connect https://rti-host:8443 shutdown
 </code></pre>
@@ -177,7 +177,7 @@ Lists all joined federates with their name, federate type, and federation name.
 fora-admin --connect http://localhost:8080 federates list
 </code></pre>
 
-**Text output:** Tab-separated `Name`, `Type`, `Federation` â€” one federate per line.
+**Text output:** Tab-separated `Name`, `Type`, `Federation` — one federate per line.
 
 **JSON output:**
 <pre><code class="language-json">
@@ -258,7 +258,7 @@ fora-admin --connect http://localhost:8080 logs tail
 2026-04-24T10:00:01.000Z [Information] Federate 'Sensor1' joined.
 </code></pre>
 
-**JSON output (NDJSON â€” one JSON object per line):**
+**JSON output (NDJSON — one JSON object per line):**
 <pre><code class="language-json">
 {"timestampUtc":"2026-04-24T10:00:00Z","level":"Information","message":"Federation 'SpacecraftSimulation' created."}
 {"timestampUtc":"2026-04-24T10:00:01Z","level":"Information","message":"Federate 'Sensor1' joined."}
@@ -327,7 +327,7 @@ timeout 60 fora-admin --connect http://localhost:8080 --format json logs tail \
   &gt;&gt; /var/log/fora-rti.ndjson
 </code></pre>
 
-### PowerShell â€” check federation count
+### PowerShell — check federation count
 
 <pre><code class="language-powershell">
 $feds = fora-admin --connect http://localhost:8080 --format json federations list | ConvertFrom-Json

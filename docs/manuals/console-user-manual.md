@@ -1,9 +1,9 @@
 ---
-description: Full reference for the fora-console interactive TUI â€” in-process and remote mode, commands, layout.
+description: Full reference for the fora-console interactive TUI — in-process and remote mode, commands, layout.
 ---
 # Fora.Rti.Console User Manual
 
-`Fora.Rti.Console` is the interactive Terminal User Interface (TUI) for `Fora.Rti`. It provides a live dashboard for local development and remote server diagnostics â€” either by starting the RTI in-process or by connecting to an already-running `Fora.Rti.Server` instance.
+`Fora.Rti.Console` is the interactive Terminal User Interface (TUI) for `Fora.Rti`. It provides a live dashboard for local development and remote server diagnostics — either by starting the RTI in-process or by connecting to an already-running `Fora.Rti.Server` instance.
 
 ## Table of Contents
 - [When to Use Console](#when-to-use-Console)
@@ -25,7 +25,7 @@ description: Full reference for the fora-console interactive TUI â€” in-pro
 | Local development with a live dashboard | `Fora.Rti.Console` (in-process mode) |
 | Attaching a UI to a running Docker/cloud RTI | `Fora.Rti.Console --connect <url>` (remote mode) |
 | Headless server (CI, Docker, background service) | `Fora.Rti.Server` |
-| One-off remote commands from a script | `fora-admin` â€” see [Fora.Rti.Admin User Manual](admin-tool-user-manual.md) |
+| One-off remote commands from a script | `fora-admin` — see [Fora.Rti.Admin User Manual](admin-tool-user-manual.md) |
 
 ---
 
@@ -71,27 +71,27 @@ In remote mode:
 - All commands execute against the remote server via `/admin/*` and `/version` HTTP endpoints.
 - The TUI header (federation count, federate count, version) refreshes every second.
 - The log panel seeds from `GET /admin/logs` and then tails `GET /admin/logs/stream` with automatic reconnect.
-- `exit` / `quit` closes Console only â€” the remote server keeps running.
+- `exit` / `quit` closes Console only — the remote server keeps running.
 
 ---
 
 ## TUI Layout
 
 <pre><code>
-â”Œ Fora.Rti.Console â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚ 10:00:01 [INFO   ] Federation 'Sim' created.                     â”‚
-â”‚ 10:00:02 [INFO   ] Federate 'Sensor1' joined federation 'Sim'.   â”‚
-â”‚ 10:00:03 [INFO   ] Federate 'Control' joined federation 'Sim'.   â”‚
-â”‚                                                                  â”‚
-â”‚                                                                  â”‚
-â”‚ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ â”‚
-â”‚ Command &gt; _                                                      â”‚
-â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
-â”‚ F1 Help | F2 Filter: ALL | Ctrl+F Search | F10 Exit              â”‚
-â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+┌ Fora.Rti.Console ────────────────────────────────────────────────┐
+│ 10:00:01 [INFO   ] Federation 'Sim' created.                     │
+│ 10:00:02 [INFO   ] Federate 'Sensor1' joined federation 'Sim'.   │
+│ 10:00:03 [INFO   ] Federate 'Control' joined federation 'Sim'.   │
+│                                                                  │
+│                                                                  │
+│ ──────────────────────────────────────────────────────────────── │
+│ Command &gt; _                                                      │
+├──────────────────────────────────────────────────────────────────┤
+│ F1 Help | F2 Filter: ALL | Ctrl+F Search | F10 Exit              │
+└──────────────────────────────────────────────────────────────────┘
 </code></pre>
 
-**System logs** â€” a full-width, dedicated `TextView` area for RTI logs and command output:
+**System logs** — a full-width, dedicated `TextView` area for RTI logs and command output:
 - **Auto-scroll:** New entries automatically scroll the view to the bottom.
 - **Selection:** Supports text selection using Mouse or `Shift + Arrow Keys`.
 - **Copy:** Supports standard `Ctrl + C` for copying selected logs.
@@ -99,12 +99,12 @@ In remote mode:
 - **Filtering:** Press `F2` to cycle through log levels (ALL, INFO, SUCCESS, WARN, ERROR).
 - **Searching:** Press `Ctrl+F` to toggle **Inline Search**. Type to filter logs in real-time. Press `Esc` or `Ctrl+F` again to clear the search and return to command mode. Both active filters are displayed in the status bar.
 
-**Command input** â€” fixed bottom area separated by a line:
+**Command input** — fixed bottom area separated by a line:
 - **Prompt:** A distinct `Command >` prompt with a high-contrast input field.
 - **Command History:** Use **Up/Down Arrow Keys** to navigate through previously entered commands.
 - **Execution:** Press **Enter** to execute.
 
-**Status bar** â€” bottom bar, refreshed every second:
+**Status bar** — bottom bar, refreshed every second:
 - Interactive shortcuts (`F1 Help`, `F2 Filter`, `Ctrl+F Search`, `F10 Exit`).
 - Active search pattern (if any).
 - Server version.
@@ -191,11 +191,11 @@ As federates connect and disconnect, log entries appear automatically:
 
 ## Runtime Notes
 
-- **Terminal.Gui (gui.cs)** â€” Uses a professional TUI library that provides true windowing, event-driven input, and robust cross-platform terminal handling (avoiding standard ANSI redraw issues).
-- **Thread isolation** â€” UI rendering and input handling run on a dedicated main loop thread, isolated from the RTI message loop.
-- **Async logging** â€” Log entries are queued and rendered via `Application.MainLoop.Invoke` without blocking the FP network or simulation engine.
-- **Unified Command System** â€” Both Console and `fora-admin` share the same `IAdminCommand` implementations from `Fora.Rti.Admin.Abstractions`.
-- **`IRtiAdminClient` abstraction** â€” Both in-process (`InProcessAdminClient`) and remote (`HttpAdminClient`) modes implement the same interface.
+- **Terminal.Gui (gui.cs)** — Uses a professional TUI library that provides true windowing, event-driven input, and robust cross-platform terminal handling (avoiding standard ANSI redraw issues).
+- **Thread isolation** — UI rendering and input handling run on a dedicated main loop thread, isolated from the RTI message loop.
+- **Async logging** — Log entries are queued and rendered via `Application.MainLoop.Invoke` without blocking the FP network or simulation engine.
+- **Unified Command System** — Both Console and `fora-admin` share the same `IAdminCommand` implementations from `Fora.Rti.Admin.Abstractions`.
+- **`IRtiAdminClient` abstraction** — Both in-process (`InProcessAdminClient`) and remote (`HttpAdminClient`) modes implement the same interface.
 
 ---
 
