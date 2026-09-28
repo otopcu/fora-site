@@ -143,6 +143,8 @@ full-capability RTI server, and host tools to operate it — all speaking the st
 
     ---
 
+    [![Fora.Rti.Console: Inventory tree, live logs, command line and status bar](assets/images/console-tui-thumb.webp){ .fora-card-shot loading=lazy }](manuals/console-user-manual.md#tui-layout)
+
     Interactive terminal dashboard. Runs the RTI in-process for local development, or attaches to a running server
     for live logs, federations, federates and sessions.
 

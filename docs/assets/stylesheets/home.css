@@ -116,6 +116,22 @@
   color: #ffffff;
 }
 
+/* Screenshot thumbnail inside a package card. */
+.md-typeset .fora-card-shot {
+  display: block;
+  width: 100%;
+  margin: 0.2rem 0 0.6rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.3rem;
+  box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.md-typeset a:hover > .fora-card-shot {
+  box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.22);
+  transform: translateY(-1px);
+}
+
 @media screen and (max-width: 44.9375em) {
   .fora-hero {
     flex-direction: column-reverse;
