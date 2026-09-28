@@ -23,7 +23,7 @@ full-capability RTI server, and host tools to operate it — all speaking the st
 
 </div>
 <div class="fora-hero__logo"><img src="assets/images/fora-logo.png" alt="Fora logo"></div>
-<div class="fora-hero__feedback-row"><a class="fora-hero__feedback" href="https://sites.google.com/view/okantopcu/contact" target="_blank" rel="noopener" title="Questions, issues or ideas? Get in touch."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2m0 14H5.17L4 17.17V4h16z"/></svg>Feedback</a></div>
+<div class="fora-hero__feedback-row"><a class="fora-hero__feedback" href="https://sites.google.com/view/okantopcu/contact" target="_blank" rel="noopener" title="Questions, issues or ideas? Get in touch."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2m0 14H5.17L4 17.17V4h16z"/></svg>Feedback</a><a class="fora-hero__feedback fora-hero__sponsor" href="https://github.com/sponsors/otopcu" target="_blank" rel="noopener" title="Fora is free. Support its development on GitHub Sponsors."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35z"/></svg>Sponsor</a></div>
 </div>
 
 ## Highlights
@@ -248,6 +248,8 @@ Fora is organized in four tiers; each builds only on the ones below it.
 ## License & Credits
 
 **Author:** Okan Topcu · **License:** Apache-2.0 · **Copyright** © 2026
+
+Fora is free. If it helps your work, you can [support its development](support.md) on GitHub Sponsors.
 
 !!! note "Disclaimer"
 

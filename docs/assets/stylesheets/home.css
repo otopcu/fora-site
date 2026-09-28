@@ -86,6 +86,8 @@
   position: absolute;
   right: 1.2rem;
   bottom: 1rem;
+  display: flex;
+  gap: 0.5rem;
 }
 
 .md-typeset .fora-hero__feedback {
@@ -114,6 +116,25 @@
   background: #20b2aa;
   border-color: #20b2aa;
   color: #ffffff;
+}
+
+/* GitHub Sponsors badge: a pink heart, turning fully pink on hover. */
+.md-typeset .fora-hero__sponsor svg {
+  fill: #ff8fc8;
+}
+.md-typeset .fora-hero__sponsor:hover,
+.md-typeset .fora-hero__sponsor:focus {
+  background: #bf3989;
+  border-color: #bf3989;
+}
+.md-typeset .fora-hero__sponsor:hover svg,
+.md-typeset .fora-hero__sponsor:focus svg {
+  fill: #ffffff;
+}
+
+/* The heart on the Support page's Sponsor button. */
+.md-typeset .fora-heart {
+  color: #ff8fc8;
 }
 
 /* Screenshot thumbnail inside a package card. */
