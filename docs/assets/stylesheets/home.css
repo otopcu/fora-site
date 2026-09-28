@@ -117,10 +117,11 @@
 }
 
 /* Screenshot thumbnail inside a package card. */
+/* A small preview floated beside the card text; the full screenshot is in the Console manual. */
 .md-typeset .fora-card-shot {
-  display: block;
-  width: 100%;
-  margin: 0.2rem 0 0.6rem;
+  float: right;
+  width: 6.5rem;
+  margin: 0.15rem 0 0.4rem 0.8rem;
   border: 1px solid var(--md-default-fg-color--lightest);
   border-radius: 0.3rem;
   box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.12);
