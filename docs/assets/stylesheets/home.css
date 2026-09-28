@@ -1,0 +1,91 @@
+/* Home page: hero area and card polish. Scoped to .fora-* classes so the manuals are unaffected. */
+
+.fora-hero {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin: 0 0 2.5rem;
+  padding: 2rem 2.2rem;
+  border-radius: 0.6rem;
+  background: linear-gradient(135deg, #16305e 0%, #1f5f9e 55%, #20b2aa 100%);
+  color: #ffffff;
+}
+
+.fora-hero__text {
+  flex: 1 1 60%;
+}
+
+.md-typeset .fora-hero h1 {
+  margin: 0 0 0.3rem;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 2.6rem;
+  letter-spacing: 0.02em;
+}
+
+.fora-hero__tagline {
+  margin: 0 0 1rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.md-typeset .fora-hero p {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.md-typeset .fora-hero .md-button {
+  margin: 0.4rem 0.4rem 0 0;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+.md-typeset .fora-hero .md-button--primary {
+  background-color: #ffffff;
+  border-color: #ffffff;
+  color: #16305e;
+}
+
+.md-typeset .fora-hero .md-button:hover {
+  background-color: #20b2aa;
+  border-color: #20b2aa;
+  color: #ffffff;
+}
+
+.fora-hero__logo {
+  flex: 0 0 auto;
+  width: 11rem;
+  padding: 0.8rem;
+  border-radius: 0.6rem;
+  background: #ffffff;
+  box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.25);
+}
+
+.fora-hero__logo img {
+  display: block;
+  width: 100%;
+}
+
+.fora-badges {
+  margin-top: 0.8rem;
+}
+
+.fora-badges span {
+  display: inline-block;
+  margin: 0 0.35rem 0.35rem 0;
+  padding: 0.1rem 0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 1rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 44.9375em) {
+  .fora-hero {
+    flex-direction: column-reverse;
+    padding: 1.5rem;
+  }
+  .fora-hero__logo {
+    width: 8rem;
+  }
+}
