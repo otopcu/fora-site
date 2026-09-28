@@ -110,7 +110,7 @@ In remote mode:
 
 ## TUI Layout
 
-![Fora.Rti.Console in in-process mode: log view, command input and status bar](../assets/images/console-tui.png)
+![Fora.Rti.Console in in-process mode: Inventory tree, log view, command input and status bar](../assets/images/console-tui.png)
 
 ### Inventory TreeView
 

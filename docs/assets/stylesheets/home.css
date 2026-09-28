@@ -1,6 +1,7 @@
 /* Home page: hero area and card polish. Scoped to .fora-* classes so the manuals are unaffected. */
 
 .fora-hero {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 2rem;
@@ -80,6 +81,41 @@
   font-weight: 600;
 }
 
+/* Feedback badge: bottom-right corner of the hero. */
+.fora-hero__feedback-row {
+  position: absolute;
+  right: 1.2rem;
+  bottom: 1rem;
+}
+
+.md-typeset .fora-hero__feedback {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.md-typeset .fora-hero__feedback svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  fill: currentColor;
+}
+
+.md-typeset .fora-hero__feedback:hover,
+.md-typeset .fora-hero__feedback:focus {
+  background: #20b2aa;
+  border-color: #20b2aa;
+  color: #ffffff;
+}
+
 @media screen and (max-width: 44.9375em) {
   .fora-hero {
     flex-direction: column-reverse;
@@ -87,5 +123,10 @@
   }
   .fora-hero__logo {
     width: 8rem;
+  }
+  .fora-hero__feedback-row {
+    position: static;
+    order: -1;
+    align-self: flex-end;
   }
 }
