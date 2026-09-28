@@ -73,6 +73,14 @@ full-capability RTI server, and host tools to operate it — all speaking the st
 
 <div class="grid cards" markdown>
 
+-   :material-server:{ .lg .middle } **Fora.Rti.Server User Manual**
+
+    ---
+
+    Run and configure the RTI: quick start, connecting federates, settings, security, Docker and troubleshooting.
+
+    [:octicons-arrow-right-24: Read the manual](manuals/server-user-manual.md)
+
 -   :material-code-braces:{ .lg .middle } **Fora.Client Programmer's Manual**
 
     ---
@@ -240,7 +248,5 @@ Fora is organized in four tiers; each builds only on the ones below it.
 
 !!! note "Disclaimer"
 
-    Fora is a free academic research toolbox provided "as is", without warranty or guaranteed support. It is intended
-    solely for research and educational use and is not suitable for production or mission-critical environments.
-    Backward compatibility is not guaranteed. Users assume all risks associated with its use. Feedback is welcome via
-    the [Contact page](https://sites.google.com/view/okantopcu/contact).
+    Fora is a free academic research toolbox provided "as is", without warranty or guaranteed support, for research
+    and educational use only. Read the full [Disclaimer](disclaimer.md).
