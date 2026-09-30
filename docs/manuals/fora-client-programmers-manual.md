@@ -94,9 +94,10 @@ public sealed class MyFederateAmbassador : IFederateAmbassador
     public Task DiscoverObjectInstanceAsync(
         ObjectInstanceHandle instance,
         ObjectClassHandle objectClass,
-        string instanceName)
+        string instanceName,
+        FederateHandle producingFederate)
     {
-        Console.WriteLine($"Discovered {instanceName} as {instance.Value}");
+        Console.WriteLine($"Discovered {instanceName} as {instance.Value}, registered by {producingFederate.Value}");
         return Task.CompletedTask;
     }
 
@@ -104,8 +105,9 @@ public sealed class MyFederateAmbassador : IFederateAmbassador
         InteractionClassHandle interactionClass,
         IReadOnlyDictionary&lt;ParameterHandle, ReadOnlyMemory&lt;byte&gt;&gt; parameterValues,
         ReadOnlyMemory&lt;byte&gt; tag,
-        OrderType sentOrder,
-        TransportationType transport)
+        TransportationTypeHandle transportationType,
+        FederateHandle producingFederate,
+        IReadOnlySet&lt;RegionHandle&gt;? optionalSentRegions)
     {
         Console.WriteLine($"Received interaction {interactionClass.Value}");
         return Task.CompletedTask;
