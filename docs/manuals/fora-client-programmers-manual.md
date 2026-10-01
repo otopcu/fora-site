@@ -60,13 +60,12 @@ using Fora.Client;
 await using var client = new ForaClient();
 var ambassador = new MyFederateAmbassador();
 
-await client.ConnectAsync(new RtiConfiguration
+// IMMEDIATE: callbacks reach the ambassador as they arrive (IEEE 1516.1-2025 §4.1).
+await client.ConnectAsync(ambassador, CallbackModel.Immediate, new RtiConfiguration
 {
     RtiAddress = "127.0.0.1:15164",
     Transport = RtiTransportKind.Tcp
-}, ambassador);
-
-await client.EnableAsynchronousDeliveryAsync();
+});
 
 await client.CreateFederationExecutionAsync("DemoFederation", "Demo.xml");
 var federate = await client.JoinFederationExecutionAsync(
@@ -194,27 +193,30 @@ Keep callback methods short. If a callback needs slow application work, queue th
 
 ## Callback Delivery Models
 
-The SDK distinguishes two local delivery controls:
+The federate chooses the callback model at Connect (IEEE 1516.1-2025 §4.1, §4.2). In the IMMEDIATE model the SDK
+invokes callbacks as they arrive, on its callback thread; in the EVOKED model — the default of the `ConnectAsync`
+overloads without a model — only within Evoke Callback(s), on the caller's thread. `EnableAsynchronousDeliveryAsync()`
+is not a delivery control: it is the Time Management service of §8.15, for a joined, time-constrained federate.
 
 | API | Effect |
 | :--- | :--- |
-| `EnableAsynchronousDeliveryAsync()` | Drains buffered callbacks and dispatches future callbacks to the ambassador as they arrive. This is the usual mode for active applications. |
-| `EvokeCallbackAsync()` | In synchronous mode, dispatches at most one buffered callback. |
-| `EvokeMultipleCallbacksAsync(min, max)` | In synchronous mode, dispatches buffered callbacks during the requested time window. |
+| `ConnectAsync(..., CallbackModel.Immediate, ...)` | Callbacks reach the ambassador as they arrive. The usual model for active applications. |
+| `ConnectAsync(..., CallbackModel.Evoked, ...)` | Callbacks wait for `EvokeCallbackAsync` / `EvokeMultipleCallbacksAsync`. |
+| `EvokeCallbackAsync()` | In the EVOKED model, dispatches at most one callback; no effect in the IMMEDIATE model (§10.57). |
+| `EvokeMultipleCallbacksAsync(min, max)` | In the EVOKED model, dispatches callbacks during the time window; no effect in the IMMEDIATE model (§10.58). |
 | `DisableCallbacksAsync()` | Locally gates ambassador delivery while the FP session still acknowledges RTI callback frames. |
 | `EnableCallbacksAsync()` | Re-enables local ambassador delivery and drains the gated callback buffer. |
 
 Recommended default:
 
 <pre><code class="language-csharp">
-await client.ConnectAsync(configuration, ambassador);
-await client.EnableAsynchronousDeliveryAsync();
+await client.ConnectAsync(ambassador, CallbackModel.Immediate, configuration);
 </code></pre>
 
 Synchronous polling style:
 
 <pre><code class="language-csharp">
-await client.ConnectAsync(configuration, ambassador);
+await client.ConnectAsync(ambassador, CallbackModel.Evoked, configuration);
 
 while (!ct.IsCancellationRequested)
 {
