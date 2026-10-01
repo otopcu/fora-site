@@ -465,6 +465,12 @@ The grant arrives through:
 Task TimeAdvanceGrantAsync(double logicalTime);
 </code></pre>
 
+A time-constrained federate receives messages only in the Time Advancing state, between an advance request and its
+grant (IEEE 1516.1-2025 §8.1.1); the messages that arrive after a grant wait at the RTI for the next request. To
+receive RO messages in the Time Granted state as well, call `EnableAsynchronousDeliveryAsync()` (§8.15); TSO messages
+still wait for the grant that passes them. `DisableTimeConstrainedAsync()` delivers the waiting TSO messages as RO
+messages (§8.7).
+
 Other supported advance services:
 
 | Service | API |
