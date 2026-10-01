@@ -534,6 +534,15 @@ await client.SubscribeObjectClassAttributesWithRegionsAsync(
     ct);
 </code></pre>
 
+The optional arguments of §9.8.1 — a passive subscription, which starts no registration and turns no updates on, and an update rate of the FDD:
+
+<pre><code class="language-csharp">
+await client.SubscribeObjectClassAttributesWithRegionsAsync(
+    vehicleClass, attributeRegions, passive: true, updateRateDesignator: "Slow", ct);
+</code></pre>
+
+The federate name of `JoinFederationExecutionAsync` is optional (§4.11.1): `JoinFederationExecutionAsync(federateType, federationName)` joins with a unique name the RTI assigns. `RequestAttributeValueUpdateAsync` takes an object instance or an object class (§6.21); for a class, every instance of it and its subclasses is asked.
+
 Associate a registered object with update regions:
 
 <pre><code class="language-csharp">
