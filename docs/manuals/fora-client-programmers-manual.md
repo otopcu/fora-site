@@ -409,20 +409,23 @@ The optional return value is a message retraction handle for timestamp-order sen
 
 ## Object Instances
 
-Register an object instance after publishing the object class:
+Register an object instance after publishing the object class; the RTI gives it a unique name:
 
 <pre><code class="language-csharp">
-ObjectInstanceHandle instance =
-    await client.RegisterObjectInstanceAsync(vehicleClass, "Vehicle-1", ct);
+ObjectInstanceHandle instance = await client.RegisterObjectInstanceAsync(vehicleClass, ct);
 </code></pre>
 
-Reserve names when your federation needs deterministic object instance names:
+To register with a name of your own, reserve it first (IEEE 1516.1-2025 §6.2, §6.8). The name belongs to the federate
+in its federation execution until it releases it or resigns; it shall not begin with "HLA":
 
 <pre><code class="language-csharp">
 await client.ReserveObjectInstanceNameAsync("Vehicle-1", ct);
+// ... after ObjectInstanceNameReservationSucceededAsync("Vehicle-1"):
+ObjectInstanceHandle named = await client.RegisterObjectInstanceAsync(vehicleClass, "Vehicle-1", ct);
 </code></pre>
 
 The result is delivered through `ObjectInstanceNameReservationSucceededAsync` or `ObjectInstanceNameReservationFailedAsync`.
+A name the federate has not reserved raises `HlaObjectInstanceNameNotReserved`.
 
 Delete an object instance:
 
@@ -479,6 +482,12 @@ Other supported advance services:
 | Next Message Request | `NextMessageRequestAsync(time)` |
 | Next Message Request Available | `NextMessageRequestAvailableAsync(time)` |
 | Flush Queue Request | `FlushQueueRequestAsync(time)` |
+
+Time Advance Request and Next Message Request are granted only below GALT, the other advance services at or below it
+(IEEE 1516.1-2025 §8.1.2): with zero lookahead, a federate granted by Time Advance Request to T sends TSO messages only
+beyond T, one granted by Time Advance Request Available also at T. Flush Queue Request is granted at once. A smaller
+lookahead given to `ModifyLookaheadAsync` is reached gradually as logical time advances (§8.20); `QueryLookaheadAsync`
+returns the actual lookahead and needs a time-regulating federate.
 
 Query time state:
 
