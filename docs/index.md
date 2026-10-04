@@ -197,16 +197,16 @@ full-capability RTI server, and host tools to operate it — all speaking the st
 Install the packages that match your role in the HLA workflow:
 
 <pre><code class="language-powershell"># Build a federate
-dotnet add package Fora.Client --version 20260720.0.0
+dotnet add package Fora.Client --version 20261004.0.0
 
 # Run the RTI with a live dashboard
-dotnet tool install -g Fora.Rti.Console --version 20260720.0.0
+dotnet tool install -g Fora.Rti.Console --version 20261004.0.0
 
 # Administer a running RTI
-dotnet tool install -g Fora.Rti.Admin --version 20260720.0.0
+dotnet tool install -g Fora.Rti.Admin --version 20261004.0.0
 
 # Host the RTI server
-dotnet add package Fora.Rti --version 20260720.0.0
+dotnet add package Fora.Rti --version 20261004.0.0
 </code></pre>
 
 Then connect a federate to the RTI (`fora-console` starts one on `localhost:15164`):
