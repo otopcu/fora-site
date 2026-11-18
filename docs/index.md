@@ -91,6 +91,14 @@ full-capability RTI server, and host tools to operate it — all speaking the st
 
     [:octicons-arrow-right-24: Read the manual](manuals/fora-client-programmers-manual.md)
 
+-   :material-chart-timeline-variant:{ .lg .middle } **Fora.Telemetry Programming Guide**
+
+    ---
+
+    Record measurements in your federate, summarize class costs and trace a send to its receivers.
+
+    [:octicons-arrow-right-24: Read the guide](manuals/fora-telemetry/index.md)
+
 -   :material-monitor-dashboard:{ .lg .middle } **Fora.Rti.Console User Manual**
 
     ---
