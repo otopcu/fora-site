@@ -47,6 +47,11 @@ nav:
       - Overview: manuals/index.md
       - Fora.Rti.Server User Manual: manuals/server-user-manual.md
       - Fora.Client Programmer's Manual: manuals/fora-client-programmers-manual.md
+      - Fora.Telemetry Programming Guide:
+          - Overview: manuals/fora-telemetry/index.md
+          - Record a federate: manuals/fora-telemetry/recording.md
+          - Read and summarize measurements: manuals/fora-telemetry/analysis.md
+          - Analyze an exchange: manuals/fora-telemetry/exchanges.md
       - Fora.Rti.Admin.Client Programmer's Manual: manuals/admin-client-programmers-manual.md
       - Fora.Rti.Admin User Manual: manuals/admin-tool-user-manual.md
       - Fora.Rti.Console User Manual: manuals/console-user-manual.md
