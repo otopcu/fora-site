@@ -94,3 +94,11 @@ A negative `RawResponseWaitNs` can occur when the response is read before the wr
 | No sender partition | Check the sender and RTI manifests, presence of both call records, the sender boundary, and observed encoder slots. |
 | Writer checks pass but delivery coverage fails | Inspect expected receiver IDs, subscription or region membership, callback pumping, and shutdown timing. |
 | Recording appears to change performance | Pair ON/OFF runs of the same optimized binaries and workload. Compare elapsed time to the same completion endpoint, validate deliveries in both arms, and report variation across run pairs. |
+
+## Disclaimer
+
+See the [Disclaimer](../../disclaimer.md) for usage terms and research-only conditions.
+
+---
+
+Updated November 18, 2026, 21:47:16 (UTC+03:00)

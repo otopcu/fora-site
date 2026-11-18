@@ -101,3 +101,11 @@ Slots report self-time for the regions actually entered. Nested child time is ex
 | `FomChecksum`, scenario seed, `EndpointDictionaryVersion` | Record the model digest under a documented convention, reproducible workload metadata and the slot dictionary used in your study. |
 
 For a custom host that owns its own observations, create a separate session with `await using var session = TelemetrySession.Start(config, "host")` and use `session.Emitter` for its lifetime. The built-in client owns and finalizes its own session.
+
+## Disclaimer
+
+See the [Disclaimer](../../disclaimer.md) for usage terms and research-only conditions.
+
+---
+
+Updated November 18, 2026, 21:47:16 (UTC+03:00)

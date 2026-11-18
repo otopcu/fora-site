@@ -11,3 +11,11 @@ Use the public C# API to measure an existing HLA 4 federate, inspect its recordi
 For sender costs, a single publisher stream is sufficient. For callback costs, record the subscriber. For request/response attribution, record the sender and the RTI with service-path events enabled. For delivery coverage, keep the expected recipient identities from your workload or subscriptions.
 
 These examples use telemetry semantics **3.1**, measurement contract **1.1**, manifest schema **1.1** and `.fort` format **2**. Use the source manifest to interpret archived files. Binary format alone does not identify the meaning of an observation. [Fora.Client Programmer's Manual](../fora-client-programmers-manual.md)
+
+## Disclaimer
+
+See the [Disclaimer](../../disclaimer.md) for usage terms and research-only conditions.
+
+---
+
+Updated November 18, 2026, 21:47:16 (UTC+03:00)

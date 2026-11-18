@@ -78,3 +78,11 @@ Use `InteractionHandleMap` for interactions. For partial updates, the manifest's
 | What was the observed resource load? | Select `MEMORY` records. Under semantics 3.1, `DurationNs` on these records stores resident bytes and `ClassHandle` stores callback queue depth. Inspect maxima over the sampled window. Analyze `RTI_STATE` and class-census samples separately. |
 
 `GetSummary()` can reject mixed known boundaries, event types, activation states and legacy/known coverage. Group or filter on those differences before aggregating. Keep sender service, RTI handling and receiver callback durations as separate quantities.
+
+## Disclaimer
+
+See the [Disclaimer](../../disclaimer.md) for usage terms and research-only conditions.
+
+---
+
+Updated November 18, 2026, 21:47:16 (UTC+03:00)
