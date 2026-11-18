@@ -269,3 +269,7 @@ Inside the container the server listens on all interfaces: HTTP on `8080`, Feder
 ## Disclaimer
 
 See the [Disclaimer](../disclaimer.md) for usage terms and research-only conditions.
+
+---
+
+Updated November 18, 2026, 21:47:16 (UTC+03:00)

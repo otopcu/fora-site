@@ -723,3 +723,11 @@ Suggested shutdown order:
 5. Dispose the client.
 
 This keeps HLA protocol concerns out of UI, simulation-domain, and encoding code while still letting the ambassador react quickly to RTI callbacks.
+
+## Disclaimer
+
+See the [Disclaimer](../disclaimer.md) for usage terms and research-only conditions.
+
+---
+
+Updated November 18, 2026, 21:47:16 (UTC+03:00)

@@ -360,3 +360,11 @@ Suggested polling cadence:
 | Logs | Use `StreamLogsAsync`; fall back to `GetLogsAsync(since)` after reconnect |
 
 Keep admin tooling separate from federate SDK code. `Fora.Client` is for HLA federates; `Fora.Rti.Admin.Client` is for observing and controlling the RTI server.
+
+## Disclaimer
+
+See the [Disclaimer](../disclaimer.md) for usage terms and research-only conditions.
+
+---
+
+Updated November 18, 2026, 21:47:16 (UTC+03:00)

@@ -387,3 +387,9 @@ Write-Host "Active federations: $($feds.Count)"
 ## Disclaimer
 
 Fora is provided as a research and educational environment. Review the project license and release notes before using it in production-like workflows.
+
+See the [Disclaimer](../disclaimer.md) for usage terms and research-only conditions.
+
+---
+
+Updated November 18, 2026, 21:47:16 (UTC+03:00)
